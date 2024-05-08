@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended");
 
 module.exports = [
 	js.configs.recommended,
@@ -30,4 +31,8 @@ module.exports = [
 			
 		}
 	},
+];
+
+module.exports = [
+	eslintPluginPrettierRecommended,
 ];
