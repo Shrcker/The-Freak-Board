@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const withAuthorization = require("../../utils/auth");
 
 // endpoint for /api/users
 
@@ -31,7 +32,7 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
-router.post("/", async (req, res) => {
+router.post("/", withAuthorization, async (req, res) => {
 	try {
 		const userData = await User.create({
 			name: req.body.name,
@@ -45,7 +46,7 @@ router.post("/", async (req, res) => {
 	}
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", withAuthorization, async (req, res) => {
 	try {
 		const userData = await User.findByPk(req.params.id, {
 			include: [{ model: Post }],
@@ -67,7 +68,7 @@ router.put("/:id", async (req, res) => {
 	}
 });
 
-router.delete("/:id", async (req, rest) => {
+router.delete("/:id", withAuthorization, async (req, rest) => {
 	try {
 		const userData = await User.findByPk(req.params.id, {
 			include: [{ model: Post }],
