@@ -86,4 +86,42 @@ router.delete("/:id", withAuthorization, async (req, rest) => {
 	}
 });
 
+router.post("/login", async (req, res) => {
+	try {
+		const userData = await User.findOne({ where: { email: req.body.email } });
+		const validPassword = await userData.checkPassword(req.body.password);
+
+		if (!validPassword || !userData) {
+			res
+				.status(400)
+				.json({ message: "Incorrect email or password, please try again" });
+			return;
+		}
+
+		// Save the user's session as a logged_in session of this specific user.
+		req.session.save(() => {
+			req.session.user_id = userData.id;
+			req.session.logged_in = true;
+
+			res.json({ user: userData, message: "You're logged in!" });
+		});
+	} catch (error) {
+		res.status(400).json(error);
+	}
+});
+
+router.post("/logout", async (req, res) => {
+	try {
+		if (req.session.logged_in) {
+			req.session.destroy(() => {
+				res.status(204).end();
+			});
+		} else {
+			res.status(404).end();
+		}
+	} catch (errpr) {
+		res.status(400).json(error);
+	}
+});
+
 module.exports = router;
