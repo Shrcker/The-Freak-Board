@@ -119,7 +119,7 @@ router.post("/logout", async (req, res) => {
 		} else {
 			res.status(404).end();
 		}
-	} catch (errpr) {
+	} catch (error) {
 		res.status(400).json(error);
 	}
 });
