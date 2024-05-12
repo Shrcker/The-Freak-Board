@@ -96,11 +96,7 @@ router.post("/login", async (req, res) => {
 
 		// Save the user's session as a logged_in session of this specific user.
 		req.session.save(() => {
-<<<<<<< Updated upstream
-			req.session.user_id = userData.id;
-=======
 			req.session.userId = userData.id;
->>>>>>> Stashed changes
 			req.session.logged_in = true;
 
 			res.json({ user: userData, message: "You're logged in!" });
