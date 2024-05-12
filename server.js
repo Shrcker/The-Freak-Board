@@ -1,8 +1,9 @@
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
-// Stand in requires for when I work on controllers
+const exphbs = require("express-handlebars");
 const routes = require("./controllers");
-const helpers = require(".utils/helpers");
+const helpers = require("./utils/helpers.js");
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -10,13 +11,13 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const hbs = create({ helpers });
+const hbs = exphbs.create({ helpers });
 
 const sess = {
 	secret: "Super secret secret",
 	cookie: {
-		// cookie lasts for two months
-		maxAge: 2 * 4 * 24 * 60 * 60 * 1000,
+		// cookie lasts for two days
+		maxAge: 2 * 24 * 60 * 60 * 1000,
 		httpOnly: true,
 		secure: false,
 		sameSite: "strict",
@@ -33,7 +34,7 @@ app.use(session(sess));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
-app.use(expres.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
