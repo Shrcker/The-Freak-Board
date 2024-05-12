@@ -2,13 +2,9 @@ const router = require("express").Router();
 const { User } = require("../../models");
 const withAuthorization = require("../../utils/auth");
 
-// endpoint for /api/users
-
 router.get("/", async (req, res) => {
 	try {
-		const userData = await User.findAll({
-			include: [{ model: Post }],
-		});
+		const userData = await User.findAll();
 		res.status(200).json(userData);
 	} catch (error) {
 		res.status(500).json(error);
@@ -100,7 +96,11 @@ router.post("/login", async (req, res) => {
 
 		// Save the user's session as a logged_in session of this specific user.
 		req.session.save(() => {
+<<<<<<< Updated upstream
 			req.session.user_id = userData.id;
+=======
+			req.session.userId = userData.id;
+>>>>>>> Stashed changes
 			req.session.logged_in = true;
 
 			res.json({ user: userData, message: "You're logged in!" });
