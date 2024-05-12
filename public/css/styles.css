@@ -1,0 +1,28 @@
+/* Taken from OSU-VIRT MVC Mini-Project file:
+ https://git.bootcampcontent.com/Ohio-State-University/OSU-VIRT-FSF-PT-01-2024-U-LOLC/-/tree/main/14-MVC/01-Activities/28-Stu_Mini-Project?ref_type=heads*/
+
+header,
+.project:not(:last-child) {
+	border-bottom: 1px solid #ccc;
+}
+
+.no-button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	color: #1b89bc;
+	text-decoration: none;
+	font-size: 100%;
+}
+
+.no-button:hover {
+	color: #065b83;
+	text-decoration: underline;
+}
+
+.dollar-amount {
+	color: #056605;
+	font-weight: bold;
+	margin-left: -5px;
+}
