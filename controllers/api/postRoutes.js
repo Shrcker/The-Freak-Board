@@ -1,12 +1,10 @@
 const router = require("express").Router();
-const { Post } = require("../../models");
+const { Post, User } = require("../../models");
 const withAuthorization = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
 	try {
-		const postData = await Post.findAll({
-			include: [{ model: User }],
-		});
+		const postData = await Post.findAll();
 		res.status(200).json(postData);
 	} catch (error) {
 		res.status(500).json(error);
@@ -35,7 +33,7 @@ router.post("/", withAuthorization, async (req, res) => {
 		const postData = await Post.create({
 			title: req.body.title,
 			content: req.body.content,
-			user_id: req.body.user_id,
+			userId: req.body.userId,
 		});
 
 		res.status(200).json(postData);
