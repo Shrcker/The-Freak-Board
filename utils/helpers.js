@@ -1,9 +1,7 @@
+const format_date = (date) => date.toLocaleDateString();
+const format_amount = (amount) => parseInt(amount).toLocaleString();
+
 module.exports = {
-	format_date: (date) => {
-		return date.toLocaleDateString();
-	},
-	format_amount: (amount) => {
-		// formats large numbers with commas
-		return parseInt(amount).toLocaleString();
-	},
+	format_date,
+	format_amount,
 };
