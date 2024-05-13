@@ -21,28 +21,6 @@ const newPostHandler = async (event) => {
 	}
 };
 
-const deletePostHandler = async (event) => {
-	event.preventDefault();
-
-	if (event.target.hasAttribute("data-id")) {
-		const id = event.target.getAttribute("data-id");
-
-		const response = await fetch(`/api/posts/${id}`, {
-			method: "DELETE",
-		});
-
-		if (response.ok) {
-			document.location.replace("/profile");
-		} else {
-			alert("Error deleting post");
-		}
-	}
-};
-
 document
 	.getElementsByClassName("poster")
 	.addEventListener("submit", newPostHandler);
-
-document
-	.getElementById("delete-post")
-	.addEventListener("click", deletePostHandler);
