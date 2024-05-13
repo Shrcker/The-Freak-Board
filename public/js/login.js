@@ -1,7 +1,7 @@
 const loginHandler = async (event) => {
 	event.preventDefault();
 
-	const email = docoument.getElementById("email-login").value.trim();
+	const email = document.getElementById("email-login").value.trim();
 	const password = document.getElementById("password-login").value.trim();
 
 	if (email && password) {
@@ -24,7 +24,7 @@ const createAccountHandler = async (event) => {
 
 	const name = document.getElementById("name-signup").value.trim();
 	const email = document.getElementById("email-signup").value.trim();
-	const password = document.getElementById("passsword-signup").value.trim();
+	const password = document.getElementById("password-signup").value.trim();
 
 	if (name && email && password) {
 		const response = await fetch("/api/users", {
@@ -42,9 +42,9 @@ const createAccountHandler = async (event) => {
 };
 
 document
-	.getElementsByClassName("login-form")
+	.getElementsByClassName("login-form")[0]
 	.addEventListener("submit", loginHandler);
 
 document
-	.getElementsByClassName("signup-form")
+	.getElementsByClassName("signup-form")[0]
 	.addEventListener("submit", createAccountHandler);
