@@ -48,7 +48,7 @@ router.get("/post/:id", async (req, res) => {
 	}
 });
 
-router.get("/profile", withAuthorization, async (req, res) => {
+router.get("/profile", async (req, res) => {
 	try {
 		// Find the logged in user based on their session ID
 		const userData = await User.findByPk(req.session.userId, {
@@ -56,7 +56,14 @@ router.get("/profile", withAuthorization, async (req, res) => {
 			include: [{ model: Post }],
 		});
 
-		const user = userData.get({ plain: true });
+		if (!req.session.id) {
+			res
+				.status(400)
+				.json({ message: "Sorry, you don't seem to be logged in!" });
+			return;
+		}
+
+		const user = await userData.get({ plain: true });
 
 		res.render("profile", {
 			...user,
