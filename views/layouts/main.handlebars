@@ -27,7 +27,7 @@
       </li>
       {{#if logged_in}}
       <li>
-        <a href="/logout">Logout</a>
+        <a id="logout" href="/logout">Logout</a>
       </li>
       {{/if}}
   </header>
@@ -35,5 +35,9 @@
   <main>
     {{{body}}}
   </main>
+
+{{#if logged_in}}
+  <script src="./js/logout.js"></script>
+{{/if}}
 
 </html>
