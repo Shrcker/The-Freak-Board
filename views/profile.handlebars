@@ -1,13 +1,15 @@
+<script src="./js/profile.js"></script> --}}
+
 <div class="profile">
   <section class="feed">
-    {{#each user}}
+    {{#each user as |user|}}
     <article class="post">
       <ul class="post-header">
         <li>
-          <h3><a href="/user/{{user.id}}">{{post.title}}</a></h3>
+          <h3><a href="/post/{{post.id}}">{{post.title}}</a></h3>
         </li>
         <li>
-          <h5>{{post.user.name}} - {{format_date post.date_created}}</h5>
+          <h5>{{user.name}} - {{format_date post.date_created}}</h5>
         </li>
       </ul>
 

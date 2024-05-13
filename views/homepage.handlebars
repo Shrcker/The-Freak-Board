@@ -1,19 +1,32 @@
-{{#each posts as |post| }}
-<div class="row mb-4 post">
-  <div class="col-md-5">
-    <h2>
-      <a href="/post/{{post.id}}">{{post.title}}</a>
-    </h2>
-    <h4>
-      {{post.user.name}}
-    </h4>
-    <p>Created on: {{format_date post.date_created}}</p>
-  </div>
-  <div class="col-md-7">
-    <p>
-      {{post.description}}
-    </p>
-  </div>
+<div class="homepage">
+  <section class="feed">
+    {{#each posts as |post|}}
+    <article class="post">
+      <ul class="post-header">
+        <li>
+          <h3><a href="/post/{{post.id}}">{{post.title}}</a></h3>
+        </li>
+        <li>
+          <h5>{{post.user.name}} - {{format_date post.date_created}}</h5>
+        </li>
+      </ul>
+
+      <p class="post-content">
+        {{post.content}}
+      </p>
+    <button type="button" class="post-like">♡</button>
+    </article>
+    {{/each}}
+  </section>
+
+  <section class="poster">
+    <form>
+      <input type="text" id="poster-title" name="title" placeholder="Title"><br />
+      <textarea id="poster-content" name="content" rows="4" cols="50" maxlength="120" placeholder="Your post here!" required></textarea><br />
+      <input type="submit" id="submit-post" value="Submit">
+    </form>
+  </section>
+
 </div>
-{{/each}}
-      
+
+<script src="./js/homepage.js"></script>
