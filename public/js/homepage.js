@@ -22,5 +22,5 @@ const newPostHandler = async (event) => {
 };
 
 document
-	.getElementsByClassName("poster")
+	.getElementsByClassName("poster")[0]
 	.addEventListener("submit", newPostHandler);
