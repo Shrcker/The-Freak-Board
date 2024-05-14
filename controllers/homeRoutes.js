@@ -57,13 +57,6 @@ router.get("/profile", withAuthorization, async (req, res) => {
 			include: [{ model: Post }],
 		});
 
-		if (!req.session.id) {
-			res
-				.status(400)
-				.json({ message: "Sorry, you don't seem to be logged in!" });
-			return;
-		}
-
 		const user = await userData.get({ plain: true });
 
 		res.render("profile", {
