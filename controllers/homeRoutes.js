@@ -42,7 +42,7 @@ router.get("/post/:id", async (req, res) => {
 		res.render("post", {
 			...post,
 			logged_in: req.session.logged_in,
-			session_id: req.session.userId,
+			session_id: req.session.user_id,
 		});
 	} catch (error) {
 		res.status(500).json(error);
@@ -52,7 +52,7 @@ router.get("/post/:id", async (req, res) => {
 router.get("/profile", withAuthorization, async (req, res) => {
 	try {
 		// Find the logged in user based on their session ID
-		const userData = await User.findByPk(req.session.userId, {
+		const userData = await User.findByPk(req.session.user_id, {
 			attributes: { exclude: ["password"] },
 			include: [{ model: Post }],
 		});
