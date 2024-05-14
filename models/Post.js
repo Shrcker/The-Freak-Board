@@ -13,10 +13,15 @@ Post.init(
 		},
 		title: {
 			type: DataTypes.STRING,
-			allownull: false,
+			allowNull: false,
 		},
 		content: {
 			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		comment: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 		date_created: {
 			type: DataTypes.DATE,
