@@ -33,7 +33,6 @@ router.post("/", withAuthorization, async (req, res) => {
 		const postData = await Post.create({
 			title: req.body.title,
 			content: req.body.content,
-			userId: req.body.userId,
 		});
 
 		res.status(200).json(postData);
