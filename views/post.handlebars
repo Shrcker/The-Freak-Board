@@ -1,0 +1,14 @@
+<article class="post-view">
+  <h2>{{title}}</h2>
+  <h4>By: {{user.name}}</h4>
+  <h6>Created On: {{date_created}}</h6>
+
+  <p>{{content}}</p><br />
+
+  <button type="button" class="post-like">♡</button>
+  {{#if_equals userId session_id}}
+  <button type="button" class="delete-post">Delete</button>
+  {{/if_equals}}
+</article>
+
+<script src="/js/profile.js"></script>
