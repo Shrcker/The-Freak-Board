@@ -102,16 +102,29 @@ li a {
 	color: white;
 }
 
-header li a {
+header li a,
+.no-button {
 	display: block;
 	text-align: center;
 	padding: 14px 16px;
 	height: 6rem;
 }
 
-li a:hover {
+li a:hover,
+.no-button:hover {
 	background-color: #637163;
 	color: white;
+	text-decoration: underline;
+}
+
+.no-button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+	font-size: 100%;
 }
 
 .homepage {
