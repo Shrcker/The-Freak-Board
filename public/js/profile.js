@@ -39,10 +39,14 @@ const deletePostHandler = async (event) => {
 	}
 };
 
-document
-	.getElementsByClassName("poster")[0]
-	.addEventListener("submit", newPostHandler);
+const posters = Array.from(document.getElementsByClassName("poster"));
 
-document
-	.getElementById("delete-post")
-	.addEventListener("click", deletePostHandler);
+posters.forEach((button) => {
+	button.addEventListener("submit", deletePostHandler);
+});
+
+const deletes = Array.from(document.getElementsByClassName("delete-post"));
+
+deletes.forEach((button) => {
+	button.addEventListener("click", deletePostHandler);
+});

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, User } = require("../../models");
+const { Post, User, Comment } = require("../../models");
 const withAuthorization = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -14,7 +14,15 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
 	try {
 		const postData = await Post.findByPk(req.params.id, {
-			include: [{ model: User }],
+			include: [
+				{
+					model: User,
+					attributes: ["name"],
+				},
+				{
+					model: Comment,
+				},
+			],
 		});
 
 		if (!postData) {
@@ -33,6 +41,7 @@ router.post("/", withAuthorization, async (req, res) => {
 		const postData = await Post.create({
 			title: req.body.title,
 			content: req.body.content,
+			user_id: req.session.user_id,
 		});
 
 		res.status(200).json(postData);

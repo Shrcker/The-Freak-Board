@@ -1,14 +1,23 @@
 <article class="post-view">
   <h2>{{title}}</h2>
   <h4>By: {{user.name}}</h4>
-  <h6>Created On: {{date_created}}</h6>
+  <h6>Created On: {{format_date date_created}}</h6>
 
   <p>{{content}}</p><br />
 
-  <button type="button" class="post-like">♡</button>
-  {{#if_equals userId session_id}}
-  <button type="button" class="delete-post">Delete</button>
+  {{!-- Disabling likes for later development --}}
+  {{!-- <button type="button" class="post-like">♡</button> --}}
+  {{#if_equals user_id session_id}}
+  <button type="button" data-id="{{id}}" class="delete-post">Delete</button>
   {{/if_equals}}
 </article>
+{{#each comments as |comment|}}
+<article class="comment">
+  <p class="comment-name"><b>{{comment.user.name}}</b></p>
+  <p class="comment-date">{{format_date comment.date_created}}</p><br />
+  <p class="comment-content">{{comment.content}}</p>
+</article>
+{{/each}}
+
 
 <script src="/js/profile.js"></script>
