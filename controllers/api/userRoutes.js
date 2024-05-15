@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, Post } = require("../../models");
+const { User, Post, Comment } = require("../../models");
 const withAuthorization = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
 	try {
 		const userData = await User.findByPk(req.params.id, {
-			include: [{ model: Post }],
+			include: [{ model: Post }, { model: Comment }],
 		});
 
 		if (!userData) {
@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
 
 		// Save the user's session as a logged_in session of this specific user.
 		req.session.save(() => {
-			req.session.userId = userData.id;
+			req.session.user_id = userData.id;
 			req.session.logged_in = true;
 
 			res.json({ user: userData, message: "You're logged in!" });

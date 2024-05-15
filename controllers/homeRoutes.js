@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, User } = require("../models");
+const { Post, User, Comment } = require("../models");
 const withAuthorization = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -9,6 +9,9 @@ router.get("/", async (req, res) => {
 				{
 					model: User,
 					attributes: ["name"],
+				},
+				{
+					model: Comment,
 				},
 			],
 		});
@@ -34,15 +37,20 @@ router.get("/post/:id", async (req, res) => {
 					model: User,
 					attributes: ["name"],
 				},
+				{
+					model: Comment,
+					include: [{ model: User, attributes: ["name"] }],
+				},
 			],
 		});
 
 		const post = await postData.get({ plain: true });
+		console.log(post);
 
 		res.render("post", {
 			...post,
 			logged_in: req.session.logged_in,
-			session_id: req.session.userId,
+			session_id: req.session.user_id,
 		});
 	} catch (error) {
 		res.status(500).json(error);
@@ -52,9 +60,16 @@ router.get("/post/:id", async (req, res) => {
 router.get("/profile", withAuthorization, async (req, res) => {
 	try {
 		// Find the logged in user based on their session ID
-		const userData = await User.findByPk(req.session.userId, {
+		const userData = await User.findByPk(req.session.user_id, {
 			attributes: { exclude: ["password"] },
-			include: [{ model: Post }],
+			include: [
+				{
+					model: Post,
+				},
+				{
+					model: Comment,
+				},
+			],
 		});
 
 		const user = await userData.get({ plain: true });
